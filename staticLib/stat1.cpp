@@ -2,6 +2,10 @@
 
 #include "stat-private.h"
 
+#if !defined(CONFIG_DATA) || CONFIG_DATA != 123
+#error Configuration info not passed along properly!
+#endif
+
 void stat1(const char* from) {
   dump("stat1", from);
 #if defined(S_HOWDY)

@@ -38,6 +38,7 @@ target_compile_definitions(
   PRIVATE
   S_BONJOUR
 )
+target_link_libraries(theStaticLibrary PRIVATE myConfig)
 set_target_properties(
   theStaticLibrary
   PROPERTIES

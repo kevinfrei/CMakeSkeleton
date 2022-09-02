@@ -8,14 +8,16 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "nin": "cmake -S . -B build -G Ninja",
-    "conf": "cmake -S . -B build",
-    "win": "cmake -S . -B build -G Ninja -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl",
+    "nin": "rimraf build && cmake -S . -B build -G Ninja",
+    "conf": "rimraf build && cmake -S . -B build",
+    "vs": "rimraf build && cmake -S . -B build -G \"Visual Studio 17 2022\"",
+    "win": "rimraf build && cmake -S . -B build -G Ninja -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl",
     "build": "cmake --build build",
     "make": "cmake --build build",
     "format": "prettier --write \"*.json\" \"*.md\" && clang-format -i **/*.cpp **/*.h"
   },
   "devDependencies": {
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2"
   }
 }

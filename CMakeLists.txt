@@ -5,6 +5,12 @@ project(DemoProject VERSION 1.0.0)
 
 configure_file(${PROJECT_SOURCE_DIR}/include/demo_version_private.h.in demo_version_private.h)
 
+# First, include any global configuration library
+add_subdirectory(configuration)
+
+# Now, set the configuration you selected as the one that subsequent  libs depend on
+add_library(myConfig ALIAS configNoRTTI)
+
 # The order of subdirectories only matters for dependencies
 add_subdirectory(staticLib)
 

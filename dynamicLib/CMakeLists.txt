@@ -47,7 +47,7 @@ target_compile_definitions(
   D_BONJOUR
 )
 
-target_link_libraries(dynamicLib theStaticLibrary)
+target_link_libraries(dynamicLib theStaticLibrary myConfig)
 set_target_properties(
   dynamicLib
     PROPERTIES
