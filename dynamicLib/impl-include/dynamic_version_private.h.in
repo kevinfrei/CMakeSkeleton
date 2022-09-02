@@ -1,0 +1,12 @@
+#pragma once
+#if !defined(__DYNAMIC_VERSION_PRIVATE_H)
+#define __DYNAMIC_VERSION_PRIVATE_H
+
+constexpr int DYNAMIC_VERSION_MAJOR = @DynamicLib_VERSION_MAJOR@;
+constexpr int DYNAMIC_VERSION_MINOR = @DynamicLib_VERSION_MINOR@;
+constexpr int DYNAMIC_VERSION_PATCH = @DynamicLib_VERSION_PATCH@;
+constexpr const char *DYNAMIC_VERSION_STR =
+    "@DynamicLib_VERSION_MAJOR@.@DynamicLib_VERSION_MINOR@"
+    ".@DynamicLib_VERSION_PATCH@";
+
+#endif

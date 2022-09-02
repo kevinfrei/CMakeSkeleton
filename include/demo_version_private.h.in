@@ -1,0 +1,12 @@
+#pragma once
+#if !defined(__DEMO_VERSION_PRIVATE_H)
+#define __DEMO_VERSION_PRIVATE_H
+
+constexpr int DEMO_VERSION_MAJOR = @DemoProject_VERSION_MAJOR@;
+constexpr int DEMO_VERSION_MINOR = @DemoProject_VERSION_MINOR@;
+constexpr int DEMO_VERSION_PATCH = @DemoProject_VERSION_PATCH@;
+constexpr const char *DEMO_VERSION_STR =
+    "@DemoProject_VERSION_MAJOR@.@DemoProject_VERSION_MINOR@"
+    ".@DemoProject_VERSION_PATCH@";
+
+#endif

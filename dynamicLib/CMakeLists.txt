@@ -1,33 +1,58 @@
-cmake_minimum_required (VERSION 3.6.1)
+cmake_minimum_required(VERSION 3.6.1)
 
-project (dynamicLib)
+project(DynamicLib VERSION 2.3.1)
 
-if (APPLE)
+configure_file(${PROJECT_SOURCE_DIR}/impl-include/dynamic_version_private.h.in dynamic_version_private.h)
+
+if(APPLE)
   # Do something for Mac
-endif ()
+endif()
 
-if (WIN32)
-  # Do something for Windows
+if(WIN32)
+  # This makes windows behave a bit more like the very broken behavior
+  # of Linux & Darwin: Export everything (no .def files of __declspec's).
+  # Why should everything default to exported? I'm not really sure, but
+  # I think it's likely to make a bunch of C++ tech just not behave the way
+  # you may think it should. Not a big deal, however....
+  # Even more broken is that everything in the invoking binary
+  # defaults to attempting to import. That's batshit crazy, honestly...
+  # It does seem to allow random .so's to override internal function calls.
+  # Some day I should demonstrate the situation...
+  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 endif()
 
 # Use a list, so you can conditionally add stuff later...
 # (Otherwise, you can just include the files directly)
-set (DYNAMICLIB_SOURCES
+add_library(
+  dynamicLib
+    SHARED
   "dyn1.cpp"
   "dyn2.cpp"
 )
-set (DYNAMICLIB_INCLUDES
-  "${PROJECT_SOURCE_DIR}/include"
-  "${staticLib_SOURCE_DIR}/include"
+target_include_directories(
+  dynamicLib
+    PUBLIC
+      "${PROJECT_SOURCE_DIR}/include"
+    PRIVATE
+      "${PROJECT_SOURCE_DIR}/impl-include"
+      "${PROJECT_BINARY_DIR}"
 )
-set (DYNAMICLIB_DEFINES "VERSION=\"1.1.1\"")
+target_compile_definitions(
+  dynamicLib
+  PUBLIC
+  D_HOWDY
+  INTERFACE
+  D_HOLA
+  PRIVATE
+  D_BONJOUR
+)
 
-include_directories(${DYNAMICLIB_INCLUDES})
-add_library(dynamicLib SHARED ${DYNAMICLIB_SOURCES})
-target_link_libraries(dynamicLib staticLib)
-set_target_properties(dynamicLib PROPERTIES
-  COMPILE_DEFINITIONS "${DYNAMICLIB_DEFINES}"
-  OUTPUT_NAME demoDyn
+target_link_libraries(dynamicLib theStaticLibrary)
+set_target_properties(
+  dynamicLib
+    PROPERTIES
+      OUTPUT_NAME demoDyn
 )
+
 # You only need to install it if it's part of the final bits (SDK or something)
 install(TARGETS dynamicLib LIBRARY DESTINATION lib)
