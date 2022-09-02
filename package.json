@@ -14,7 +14,7 @@
     "win": "rimraf build && cmake -S . -B build -G Ninja -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl",
     "build": "cmake --build build",
     "make": "cmake --build build",
-    "format": "prettier --write \"*.json\" \"*.md\" && clang-format -i **/*.cpp **/*.h"
+    "format": "prettier --write \"*.json\" \"*.md\" && clang-format -i demo1.cpp demo2.cpp dynamicLib/dyn1.cpp dynamicLib/dyn2.cpp dynamicLib/impl-include/demo_version_private.h dynamicLib/include/dyn-public.h include/app.h staticLib/impl-include/stat-private.h staticLib/include/stat-public.h staticLib/stat1.cpp staticLib/stat2.cpp"
   },
   "devDependencies": {
     "prettier": "^2.7.1",

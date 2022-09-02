@@ -20,6 +20,8 @@ target_compile_definitions(
 # And additional compilation flags go in here:
 if (WIN32) 
   target_compile_options(configNoRTTI INTERFACE $<$<COMPILE_LANGUAGE:CXX>:/GR->)
+  message(NOTICE ${MY_TEST_VALUE})
+  message(NOTICE ${ANOTHER_TEST_VALUE})
 else()
   target_compile_options(configNoRTTI INTERFACE $<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>)
 endif()
