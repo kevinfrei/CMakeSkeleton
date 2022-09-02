@@ -1,0 +1,21 @@
+{
+  "name": "CMakeSkeleton",
+  "version": "1.0.0",
+  "description": "A CMake Skeleton project and testing bed for Arduino2CMake",
+  "main": "index.js",
+  "repository": "https://github.com/kevinfrei/CMakeSkeleton.git",
+  "author": "Kevin Frei <kevinfrei@hotmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "nin": "cmake -S . -B build -G Ninja",
+    "conf": "cmake -S . -B build",
+    "win": "cmake -S . -B build -G Ninja -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl",
+    "build": "cmake --build build",
+    "make": "cmake --build build",
+    "format": "prettier --write \"*.json\" \"*.md\" && clang-format -i **/*.cpp **/*.h"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
+}

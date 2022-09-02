@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "stat-public.h"
 #include "dyn-public.h"
+#include "stat-public.h"
 
-void dyn1(const char *from) {
+void dyn1(const char* from) {
   stat1("dyn1");
   stat1(from);
 
@@ -22,5 +22,4 @@ void dyn1(const char *from) {
 #else
   std::cout << "Bonjour-dynamic... [Shouldn't see this]" << std::endl;
 #endif
-
 }

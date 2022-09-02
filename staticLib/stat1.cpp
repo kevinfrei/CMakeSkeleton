@@ -2,7 +2,7 @@
 
 #include "stat-private.h"
 
-void stat1(const char *from) {
+void stat1(const char* from) {
   dump("stat1", from);
 #if defined(S_HOWDY)
   std::cout << "Howdy-static! [Should see this]" << std::endl;
