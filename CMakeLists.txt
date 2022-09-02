@@ -1,37 +1,48 @@
-cmake_minimum_required (VERSION 3.6.1)
-#Name the project, because...
-project (DemoProject)
+cmake_minimum_required(VERSION 3.12)
+
+# Name the project, because...
+project(DemoProject VERSION 1.0.0)
+
+configure_file(${PROJECT_SOURCE_DIR}/include/demo_version_private.h.in demo_version_private.h)
 
 # The order of subdirectories only matters for dependencies
-add_subdirectory (staticLib)
-# For fun, the dynamicLib uses staticLib
-add_subdirectory (dynamicLib)
+add_subdirectory(staticLib)
 
-#The remaining contents of this file could be put in another
-#CMakeLists.txt file in a directory added using add_subdirectory if you want
-#The only requirement is that is occurs *after* all the things it depends on
+# Which is probably not great, because dynamicLib depends on staticLib
+add_subdirectory(dynamicLib)
 
-set (DEMO_SOURCES
+# Create the executable target
+add_executable(
+  demoProject
   "demo1.cpp"
   "demo2.cpp"
 )
-# Same thing here
-# There are some useful macros that can be found on cmake's website
-set (DEMO_INCLUDES
-  "${PROJECT_SOURCE_DIR}/include"
-  "${dynamicLib_SOURCE_DIR}/include"
-  "${staticLib_SOURCE_DIR}/include"
+target_compile_features(
+  demoProject
+  PRIVATE
+  cxx_std_17
 )
-set (DEMO_DEFINES "VERSION=\"2.2.2\"")
-
-include_directories(${DEMO_INCLUDES})
-add_executable(demoProject ${DEMO_SOURCES})
-# Any of the "PUBLIC" link libraries will be used by any
-# dependent projects when they link...
-target_link_libraries(demoProject dynamicLib staticLib)
-set_target_properties(demoProject PROPERTIES
-  COMPILE_DEFINITIONS "${DEMO_DEFINES}"
+target_include_directories(
+  demoProject
+  PRIVATE
+  "${PROJECT_SOURCE_DIR}/include"
+  "${PROJECT_BINARY_DIR}" # This is for the demo.h.in -> demo.h translation
+)
+target_link_libraries(
+  demoProject
+  theStaticLibrary
+  dynamicLib
+)
+target_compile_definitions(
+  demoProject
+  PRIVATE
+  HOWDY
+)
+set_target_properties(
+  demoProject
+  PROPERTIES
   OUTPUT_NAME demoBinary
 )
+
 # You only need to install it if it's part of the final bits (SDK or something)
 install(TARGETS demoProject RUNTIME DESTINATION bin)

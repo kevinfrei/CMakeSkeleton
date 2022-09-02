@@ -1,0 +1,12 @@
+#pragma once
+#if !defined(__STATIC_VERSION_PRIVATE_H)
+#define __STATIC_VERSION_PRIVATE_H
+
+constexpr int STATIC_VERSION_MAJOR = @StaticLib_VERSION_MAJOR@;
+constexpr int STATIC_VERSION_MINOR = @StaticLib_VERSION_MINOR@;
+constexpr int STATIC_VERSION_PATCH = @StaticLib_VERSION_PATCH@;
+constexpr const char *STATIC_VERSION_STR =
+    "@StaticLib_VERSION_MAJOR@.@StaticLib_VERSION_MINOR@"
+    ".@StaticLib_VERSION_PATCH@";
+
+#endif
